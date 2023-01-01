@@ -29,11 +29,17 @@ str_len proc
 	xor rax, rax	
 
 	start:
-		inc rdi	
-		inc	rax
 
-		cmp qword ptr [rdi], 0; this is how you deref an address :) 
+
+		cmp qword ptr [rdi], 13; this is how you deref an address :) geez :) 
 		jz	_end; jump when null terminator
+		cmp qword ptr [rdi], 10
+		jz _end
+		cmp qword ptr [rdi], 0;cases for other escape seq
+		jz _end
+
+		add rdi,1
+		inc	rax
 	;jump to start if value is zero
 	jmp start
 	_end:
